@@ -1,0 +1,22 @@
+services:
+  next-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: next-test
+    ports: 
+      - '3000:3000'
+    volumes:
+    - .:/app
+    - /app/node_modules
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - next-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: next
+    ports:
+      - '6500:3306'
+volumes:
+  next-mysql-data:
